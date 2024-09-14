@@ -7,9 +7,6 @@ class Node {
   }
 }
 
-const myNode = new Node(7);
-console.log(myNode);
-
 // LinkedList
 class LinkedList {
   constructor(value) {
@@ -32,8 +29,30 @@ class LinkedList {
     this.length++;
     return this;
   }
+
+  // pop method
+  pop() {
+    if (!this.head) {
+      return undefined;
+    } else {
+      let temp = this.head;
+      let pre = this.head;
+      while (temp.next) {
+        pre = temp;
+        temp = temp.next;
+      }
+      this.tail = pre;
+      this.tail.next = null;
+      this.length--;
+      if (this.length === 0) {
+        this.head = null;
+        this.tail = null;
+      }
+      return temp;
+    }
+  }
 }
 
-const myLinkedList = new LinkedList(77);
+const myLinkedList = new LinkedList();
 
-console.log(myLinkedList.push(4));
+console.log(myLinkedList.pop());
