@@ -69,6 +69,7 @@ class LinkedList {
     return this;
   }
 
+  // shift method
   shift() {
     if (!this.head) {
       return undefined;
@@ -83,11 +84,24 @@ class LinkedList {
       return temp;
     }
   }
+
+  // get method
+  get(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    let temp = this.head;
+    for (let i = 0; i < index; i++) {
+      temp = temp.next;
+    }
+    return temp;
+  }
 }
 
-const myLinkedList = new LinkedList(7);
-console.log(myLinkedList.push(8));
-console.log(myLinkedList.pop());
-console.log(myLinkedList.unshift(6));
-console.log(myLinkedList.shift());
+const myLinkedList = new LinkedList(0);
+console.log(myLinkedList.push(1));
+console.log(myLinkedList.push(2));
+console.log(myLinkedList.push(3));
+// console.log(myLinkedList.pop());
+// console.log(myLinkedList.unshift(6));
+// console.log(myLinkedList.shift());
+console.log(myLinkedList.get(-1));
 console.log(myLinkedList);
