@@ -95,6 +95,7 @@ class LinkedList {
     return temp;
   }
 
+  // set method
   set(index, value) {
     let temp = this.get(index);
     if (temp) {
@@ -103,15 +104,46 @@ class LinkedList {
     }
     return false;
   }
+  // insert method
+  insert(index, value) {
+    if (index === 0) return this.unshift(value);
+    if (index === this.length) return this.push(value);
+    if (index < 0 || index > this.length) return false;
+
+    const newNode = new Node(value);
+    let temp = get(index - 1);
+    newNode.next = temp.next;
+    temp.next = newNode;
+    this.length++;
+    return true;
+  }
+
+  // reverse method
+  reverse() {
+    let temp = this.head;
+    this.head = this.tail;
+    this.tail = temp;
+
+    let next = temp.next;
+    let prev = null;
+
+    for (let i = 0; i < this.length; i++) {
+      next = temp.next;
+      temp.next = prev;
+      prev = temp;
+      temp = next;
+    }
+    return this;
+  }
 }
 
 const myLinkedList = new LinkedList(0);
-console.log(myLinkedList.push(1));
-console.log(myLinkedList.push(2));
-console.log(myLinkedList.push(3));
+myLinkedList.push(1);
+myLinkedList.push(2);
+myLinkedList.push(3);
 // console.log(myLinkedList.pop());
 // console.log(myLinkedList.unshift(6));
 // console.log(myLinkedList.shift());
-console.log(myLinkedList.get(2));
-console.log(myLinkedList.set(2, 7));
-console.log(myLinkedList);
+// console.log(myLinkedList.get(2));
+// console.log(myLinkedList.set(2, 7));
+console.log(myLinkedList.reverse());
