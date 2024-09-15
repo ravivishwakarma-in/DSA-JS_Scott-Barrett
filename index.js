@@ -96,13 +96,12 @@ class LinkedList {
   }
 
   set(index, value) {
-    if (index < 0 || index >= this.length) return undefined;
-    let temp = this.head;
-    for (let i = 0; i < index; i++) {
-      temp = temp.next;
+    let temp = this.get(index);
+    if (temp) {
       temp.value = value;
+      return true;
     }
-    return temp;
+    return false;
   }
 }
 
