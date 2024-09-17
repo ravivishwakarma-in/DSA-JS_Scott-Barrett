@@ -135,6 +135,21 @@ class LinkedList {
     }
     return this;
   }
+  findMiddleNode() {
+    let temp = this.head;
+    let temp2 = this.head;
+    let length = 1;
+    while (temp.next) {
+      temp = temp.next;
+      length++;
+    }
+    console.log("length", length);
+    for (let i = 1; i <= parseInt(length / 2); i++) {
+      temp2 = temp2.next;
+    }
+    console.log(temp2.value);
+    return temp2;
+  }
 }
 
 const myLinkedList = new LinkedList(0);
