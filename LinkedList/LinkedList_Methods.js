@@ -1,5 +1,3 @@
-console.log("Jay Shri Krishna");
-// Node
 class Node {
   constructor(value) {
     this.value = value;
@@ -7,7 +5,6 @@ class Node {
   }
 }
 
-// LinkedList
 class LinkedList {
   constructor(value) {
     const newNode = new Node(value);
@@ -16,7 +13,40 @@ class LinkedList {
     this.length = 1;
   }
 
-  // push method
+  printList() {
+    let temp = this.head;
+    while (temp !== null) {
+      console.log(temp.value);
+      temp = temp.next;
+    }
+  }
+
+  getHead() {
+    if (this.head === null) {
+      console.log("Head: null");
+    } else {
+      console.log("Head: " + this.head.value);
+    }
+  }
+
+  getTail() {
+    if (this.tail === null) {
+      console.log("Tail: null");
+    } else {
+      console.log("Tail: " + this.tail.value);
+    }
+  }
+
+  getLength() {
+    console.log("Length: " + this.length);
+  }
+
+  makeEmpty() {
+    this.head = null;
+    this.tail = null;
+    this.length = 0;
+  }
+
   push(value) {
     const newNode = new Node(value);
     if (!this.head) {
@@ -30,32 +60,24 @@ class LinkedList {
     return this;
   }
 
-  // pop method
   pop() {
-    if (!this.head) {
-      // if there is no node in the LinkedList
-      return undefined;
-    } else {
-      // if there are multiple nodes in the LinkedList
-      let temp = this.head;
-      let pre = this.head;
-      while (temp.next) {
-        pre = temp;
-        temp = temp.next;
-      }
-      this.tail = pre;
-      this.tail.next = null;
-      this.length--;
-      if (this.length === 0) {
-        // if there is one node in the LinkedList
-        this.head = null;
-        this.tail = null;
-      }
-      return temp;
+    if (this.length === 0) return undefined;
+    let temp = this.head;
+    let pre = this.head;
+    while (temp.next) {
+      pre = temp;
+      temp = temp.next;
     }
+    this.tail = pre;
+    this.tail.next = null;
+    this.length--;
+    if (this.length === 0) {
+      this.head = null;
+      this.tail = null;
+    }
+    return temp;
   }
 
-  // unshift method
   unshift(value) {
     const newNode = new Node(value);
     if (!this.head) {
@@ -69,23 +91,18 @@ class LinkedList {
     return this;
   }
 
-  // shift method
   shift() {
-    if (!this.head) {
-      return undefined;
-    } else {
-      let temp = this.head;
-      this.head = this.head.next;
-      temp.next = null;
-      this.length--;
-      if (this.length === 0) {
-        this.tail = null;
-      }
-      return temp;
+    if (this.length === 0) return undefined;
+    let temp = this.head;
+    this.head = this.head.next;
+    this.length--;
+    if (this.length === 0) {
+      this.tail = null;
     }
+    temp.next = null;
+    return temp;
   }
 
-  // get method
   get(index) {
     if (index < 0 || index >= this.length) return undefined;
     let temp = this.head;
@@ -95,7 +112,6 @@ class LinkedList {
     return temp;
   }
 
-  // set method
   set(index, value) {
     let temp = this.get(index);
     if (temp) {
@@ -104,21 +120,34 @@ class LinkedList {
     }
     return false;
   }
-  // insert method
+
   insert(index, value) {
-    if (index === 0) return this.unshift(value);
-    if (index === this.length) return this.push(value);
     if (index < 0 || index > this.length) return false;
+    if (index === this.length) return this.push(value);
+    if (index === 0) return this.unshift(value);
 
     const newNode = new Node(value);
-    let temp = get(index - 1);
+    const temp = this.get(index - 1);
     newNode.next = temp.next;
     temp.next = newNode;
     this.length++;
     return true;
   }
 
-  // reverse method
+  remove(index) {
+    if (index < 0 || index >= this.length) return undefined;
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
+
+    const before = this.get(index - 1);
+    const temp = before.next;
+
+    before.next = temp.next;
+    temp.next = null;
+    this.length--;
+    return temp;
+  }
+
   reverse() {
     let temp = this.head;
     this.head = this.tail;
@@ -133,22 +162,8 @@ class LinkedList {
       prev = temp;
       temp = next;
     }
+
     return this;
-  }
-  findMiddleNode() {
-    let temp = this.head;
-    let temp2 = this.head;
-    let length = 1;
-    while (temp.next) {
-      temp = temp.next;
-      length++;
-    }
-    console.log("length", length);
-    for (let i = 1; i <= parseInt(length / 2); i++) {
-      temp2 = temp2.next;
-    }
-    console.log(temp2.value);
-    return temp2;
   }
 }
 
